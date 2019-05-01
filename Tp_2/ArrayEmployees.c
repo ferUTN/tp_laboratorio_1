@@ -163,51 +163,37 @@ static void swapEmpleado(eEmpleado listaEmp[],int i, int j){
 
 static void ordenarEmpleadosAsc(eEmpleado listaEmp[], int te){
     int i,j;
-    //Ordena por apellido descendente
+    //Ordena por apellido y sector ascendente
     for(i=0;i<te-1;i++){
         for(j=i+1;j<te;j++){
             if(listaEmp[i].estaLibre== OCUPADO){
-                if(stricmp(listaEmp[i].apellido,listaEmp[j].apellido) > 0){
-                    swapEmpleado(listaEmp,i,j);
+                //Intercambio si el apellido de indice i es mayor al apellido de indice j
+                //o si son iguales en el caso de que el sector de i sea mayor al sector de j
+                if (( stricmp(listaEmp[i].apellido,listaEmp[j].apellido) > 0) ||
+                   (( stricmp(listaEmp[i].apellido,listaEmp[j].apellido) ==0) &&
+                    ( listaEmp[i].sector > listaEmp[j].sector))){
+
+                        swapEmpleado(listaEmp,i,j);
                 }
             }
 
-        }
-    }
-    //En el caso de que haya apellidos repetidos, los ordena por sector ascendente
-    for(i=0;i<te-1;i++){
-        for(j=i+1;j<te;j++){
-            if(listaEmp[i].estaLibre== OCUPADO){
-                if(stricmp(listaEmp[i].apellido,listaEmp[j].apellido) == 0){
-                    if(listaEmp[i].sector > listaEmp[j].sector){
-                        swapEmpleado(listaEmp, i,j);
-                    }
-                }
-            }
         }
     }
 }
 
 static void ordenarEmpleadosDesc(eEmpleado listaEmp[], int te){
     int i,j;
-    //Ordena por apellido descendente
+    //Ordena por apellido y sector descendente
     for(i=0;i<te-1;i++){
         for(j=i+1;j<te;j++){
             if(listaEmp[i].estaLibre== OCUPADO){
-                if(stricmp(listaEmp[i].apellido,listaEmp[j].apellido) < 0){
-                    swapEmpleado(listaEmp, i,j);
-                }
-            }
-        }
-    }
-    //En el caso de que haya apellidos repetidos, los ordena por sector descendente
-    for(i=0;i<te-1;i++){
-        for(j=i+1;j<te;j++){
-            if(listaEmp[i].estaLibre== OCUPADO){
-                if(stricmp(listaEmp[i].apellido,listaEmp[j].apellido) == 0){
-                    if (listaEmp[i].sector < listaEmp[j].sector){
-                        swapEmpleado(listaEmp, i,j);
-                    }
+                //Intercambio si el apellido de indice i es menor al apellido de indice j
+                //o si son iguales en el caso de que el sector de i sea menor al sector de j
+                if (( stricmp(listaEmp[i].apellido,listaEmp[j].apellido) < 0) ||
+                   (( stricmp(listaEmp[i].apellido,listaEmp[j].apellido) ==0) &&
+                    ( listaEmp[i].sector < listaEmp[j].sector))){
+
+                        swapEmpleado(listaEmp,i,j);
                 }
             }
         }
@@ -438,7 +424,7 @@ void mostrarInformes(eEmpleado listaEmp[], int te){
     int opcion = menuDeOpciones("\n--INFORMES--\n\n"
                                 "\n1. Lista de Empleados"
                                 "\n2. Empleados ordenados en forma ascendente"
-                                "\n3. Empleados ordenados en forma descendente)"
+                                "\n3. Empleados ordenados en forma descendente"
                                 "\n4. Salario total"
                                 "\n5. Salario promedio"
                                 "\n6. Cant. empleados que superan el salario promedio"
