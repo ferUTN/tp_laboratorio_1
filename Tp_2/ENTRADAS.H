@@ -1,3 +1,8 @@
+#ifndef ENTRADAS_H
+#define ENTRADAS_H
+
+#endif // ENTRADAS_H
+
 /** \brief Función que solicita un número real mayor a cero
  *
  * \param mensaje[] char Lo que representa el número que se solicita

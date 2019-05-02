@@ -1,3 +1,6 @@
+#ifndef ARRAYEMPLOYEES_H
+#define ARRAYEMPLOYEES_H
+
 #define LIBRE 1
 #define OCUPADO 0
 #define ASC 1
@@ -13,6 +16,7 @@ typedef struct{
     int estaLibre;
 }eEmpleado;
 
+#endif // ARRAYEMPLOYEES_H
 
 /** \brief Función para dar la baja lógica de todos los empleados del array
  *

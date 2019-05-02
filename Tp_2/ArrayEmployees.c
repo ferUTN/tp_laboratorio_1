@@ -459,8 +459,9 @@ int bajaEmpleado(eEmpleado listaEmp[], int te, char mensaje[]){
 }
 
 void mostrarInformes(eEmpleado listaEmp[], int te){
-
-    int opcion = menuDeOpciones("\n--INFORMES--\n\n"
+    int opcion;
+    do{
+        opcion = menuDeOpciones("\n--INFORMES--\n\n"
                                 "\n1. Lista de Empleados"
                                 "\n2. Empleados ordenados en forma ascendente"
                                 "\n3. Empleados ordenados en forma descendente"
@@ -468,33 +469,31 @@ void mostrarInformes(eEmpleado listaEmp[], int te){
                                 "\n5. Salario promedio"
                                 "\n6. Cant. empleados que superan el salario promedio"
                                 "\n7. Volver al menu anterior\n\nElija una opcion",1,7);
-    switch(opcion){
-
-        case 1:
-            printf("\n--Lista de Empleados--\n");
-            mostrarEmpleados(listaEmp, te);
-            break;
-        case 2:
-            ordenarEmpleados(listaEmp, te, ASC);
-            printf("\n--Empleados Ordenados Por Apellido y Sector Ascendente--\n");
-            mostrarEmpleados(listaEmp, te);
-            break;
-        case 3:
-            ordenarEmpleados(listaEmp, te, DESC);
-            printf("\n--Empleados Ordenados Por Apellido y Sector Descendente--\n");
-            mostrarEmpleados(listaEmp, te);
-            break;
-        case 4:
-            printf("\nSalario total: %.2f\n\n",obtenerSalarioTotal(listaEmp,te));
-            break;
-        case 5:
-            printf("\nPromedio de Salarios: %.2f\n\n",obtenerSalarioPromedio(listaEmp,te));
-            break;
-        case 6:
-            printf("\nCantidad de empleados con salario mayor al promedio: %d\n\n",
-                    contarSalariosMayores(listaEmp,te));
-            break;
-        case 7:
-            printf("\n--FIN DE LOS INFORMES--\n\n");
-    }
+        switch(opcion){
+            case 1:
+                printf("\n--Lista de Empleados--\n");
+                mostrarEmpleados(listaEmp, te);
+                break;
+            case 2:
+                ordenarEmpleados(listaEmp, te, ASC);
+                printf("\n--Empleados Ordenados Por Apellido y Sector Ascendente--\n");
+                mostrarEmpleados(listaEmp, te);
+                break;
+            case 3:
+                ordenarEmpleados(listaEmp, te, DESC);
+                printf("\n--Empleados Ordenados Por Apellido y Sector Descendente--\n");
+                mostrarEmpleados(listaEmp, te);
+                break;
+            case 4:
+                printf("\nSalario total: %.2f\n\n",obtenerSalarioTotal(listaEmp,te));
+                break;
+            case 5:
+                printf("\nPromedio de Salarios: %.2f\n\n",obtenerSalarioPromedio(listaEmp,te));
+                break;
+            case 6:
+                printf("\nCantidad de empleados con salario mayor al promedio: %d\n\n",
+                        contarSalariosMayores(listaEmp,te));
+        }
+    }while(opcion!=7);
+    printf("\n--FIN DE LOS INFORMES--\n\n");
 }

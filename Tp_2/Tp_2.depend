@@ -45,3 +45,26 @@
 	"ArrayEmployees.h"
 	"ENTRADAS.H"
 
+1556829218 source:g:\tp_2_ultima_version\arrayemployees.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ENTRADAS.H"
+	"ArrayEmployees.h"
+
+1556828896 g:\tp_2_ultima_version\entradas.h
+
+1556828896 g:\tp_2_ultima_version\arrayemployees.h
+
+1556731260 source:g:\tp_2_ultima_version\entradas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Entradas.h"
+
+1556826680 source:g:\tp_2_ultima_version\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayEmployees.h"
+	"ENTRADAS.H"
+
