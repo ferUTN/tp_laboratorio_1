@@ -84,7 +84,7 @@ int ordenarEmpleados(eEmpleado listaEmp[], int te, int orden);
 int mostrarEmpleados(eEmpleado listaEmp[], int te);
 
 
-/** \brief Función que acumula el salario total de todos los empleados
+/** \brief Función que acumula el salario total de todos los empleados activos
  *
  * \param listaEmp[] eEmpleado El array de empleados
  * \param te int El tamaño del array
@@ -94,11 +94,11 @@ int mostrarEmpleados(eEmpleado listaEmp[], int te);
 float obtenerSalarioTotal(eEmpleado listaEmp[], int te);
 
 
-/** \brief Función que calcula el salario promedio de todos los empleados
+/** \brief Función que calcula el salario promedio de todos los empleados activos
  *
  * \param listaEmp[] eEmpleado El array de empleados
  * \param te int El tamaño del array
- * \return float Retorna el salario promedio
+ * \return float Retorna el salario promedio o -1 si no hay empleados activos
  *
  */
 float obtenerSalarioPromedio(eEmpleado listaEmp[], int te);
@@ -114,14 +114,15 @@ float obtenerSalarioPromedio(eEmpleado listaEmp[], int te);
 int contarSalariosMayores(eEmpleado listaEmp[], int te);
 
 
-/** \brief Procedimiento que hardcodea hasta 8 empleados en el array de empleados
+/** \brief Función que hardcodea hasta 8 empleados en el array de empleados
  *
  * \param listaEmp[] eEmpleado El array de empleados
  * \param te int El tamaño del array
- * \return void
+ * \param cant int Cantidad de empleados a hardcodear
+ * \return El número de empleados que se pudieron hardcodear
  *
  */
-void hardcodearEmpleados(eEmpleado listaEmp[], int te);
+int hardcodearEmpleados(eEmpleado listaEmp[], int te, int cant);
 
 
 /** \brief Función que solicita los datos para cargar un empleado en el array
@@ -130,7 +131,7 @@ void hardcodearEmpleados(eEmpleado listaEmp[], int te);
  * \param te int El tamaño del array
  * \param id int El último id utilizado
  * \param mensaje[] char Variable que se actualiza a "EMPLEADO AGREGADO" o a "NO HAY LUGAR"
- * \return int Retorna 1 si se cargó al empleado o -1 si no había lugar
+ * \return int Retorna 1 si se cargó al empleado o 0 si no había lugar
  *
  */
 int altaEmpleado(eEmpleado listaEmp[], int te, int id, char mensaje[]);
@@ -144,7 +145,7 @@ int altaEmpleado(eEmpleado listaEmp[], int te, int id, char mensaje[]);
  *                      "Salario modificado", "Sector modificado", "Se cancelo la modificacion",
  *                      "El id de empleado no existe" según corresponda
  * \return int Retorna 1 si se modificaron los datos, 0 si se cancelo la modificacion
- *                  o -1 si no existe el id de empleado
+ *             o -1 si no existe el id de empleado
  *
  */
 int modificarEmpleado(eEmpleado listaEmp[], int te, char mensaje[]);
@@ -171,3 +172,13 @@ int bajaEmpleado(eEmpleado listaEmp[], int te, char mensaje[]);
  *
  */
 void mostrarInformes(eEmpleado listaEmp[], int te);
+
+
+/** \brief Función que verifica la existencia de algún empleado activo en el array
+ *
+ * \param listaEmp[] eEmpleado El array de empleados
+ * \param te int El tamaño del array
+ * \return int Retorna 1 si hay algún empleado activo o 0 si no lo hay
+ *
+ */
+int hayActivos(eEmpleado listaEmp[], int te);

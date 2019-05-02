@@ -22,3 +22,26 @@
 
 1556740550 g:\tp_2\entradas.h
 
+1556731260 source:g:\tp_2_ultimaversion\entradas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Entradas.h"
+
+1556740550 g:\tp_2_ultimaversion\entradas.h
+
+1556827274 source:g:\tp_2_ultimaversion\arrayemployees.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ENTRADAS.H"
+	"ArrayEmployees.h"
+
+1556827274 g:\tp_2_ultimaversion\arrayemployees.h
+
+1556826680 source:g:\tp_2_ultimaversion\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayEmployees.h"
+	"ENTRADAS.H"
+

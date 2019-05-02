@@ -57,16 +57,6 @@ static void ordenarEmpleadosAsc(eEmpleado listaEmp[], int te);
 static void ordenarEmpleadosDesc(eEmpleado listaEmp[], int te);
 
 
-/** \brief Función que cuenta los empleados activos en el array
- *
- * \param listaEmp[] eEmpleado El array de empleados
- * \param te int El tamaño del array
- * \return int La cantidad que devuelve
- *
- */
-static int contarActivos(eEmpleado listaEmp[], int te);
-
-
 /** \brief Procedimiento que solicita un nuevo nombre para el empleado
  *
  * \param listaEmp[] eEmpleado El array de empleados
@@ -113,10 +103,25 @@ static void modificarSector(eEmpleado listaEmp[], int indice);
  * \return void
  *
  */
-static void mostrarEncabezado();
+static void mostrarEncabezado(void);
 
 
-static void mostrarEncabezado(){
+/** \brief Función que cuenta los empleados activos en el array
+ *
+ * \param listaEmp[] eEmpleado El array de empleados
+ * \param te int El tamaño del array
+ * \return int La cantidad que devuelve
+ *
+ */
+static int contarActivos(eEmpleado listaEmp[], int te);
+
+
+
+/*  Implementación de las funciones  */
+
+
+
+static void mostrarEncabezado(void){
     printf("\n\nID\t   NOMBRE\tAPELLIDO\tSALARIO\t\t      SECTOR\n\n");
 }
 
@@ -211,29 +216,52 @@ static int contarActivos(eEmpleado listaEmp[], int te){
     return contador;
 }
 
-void hardcodearEmpleados(eEmpleado listaEmp[], int cant){
-    if (cant <= 8 && cant >= 0){
-        int i;
-        int ids[]= {10,20,30,40,50,60,70,80};
-        char nombres[][50]= {"Carlos","Maria","Lucas","Pedro",
-                            "Daniel","Mateo","Ana","Gabriela"};
-        char apellidos[][50]= {"Martinez","Alvarez","Martinez","Rey",
-                            "Martinez","Perez","Stanley","Martinez"};
-        float salarios[]={50000,30000,80000,10000,90000,20000,60000,70000};
-        int sectores[]= {5,2,3,3,2,4,1,4};
+int hardcodearEmpleados(eEmpleado listaEmp[], int te, int cant){
 
+    int ids[]= {10,20,30,40,50,60,70,80};
+    char nombres[][50]= {"Carlos","Maria","Lucas","Pedro",
+                            "Daniel","Mateo","Ana","Gabriela"};
+    char apellidos[][50]= {"Martinez","Alvarez","Martinez","Rey",
+                            "Martinez","Perez","Stanley","Martinez"};
+    float salarios[]={50000,30000,80000,10000,90000,20000,60000,70000};
+    int sectores[]= {5,2,3,3,2,4,1,4};
+
+    int contador= 0;
+    if (cant <= 8 && cant >= 0){
+
+        int indice;
+        int i;
         for(i=0; i<cant; i++){
-            listaEmp[i].id = ids[i];
-            strcpy(listaEmp[i].nombre, nombres[i]);
-            strcpy(listaEmp[i].apellido, apellidos[i]);
-            listaEmp[i].salario= salarios[i];
-            listaEmp[i].sector= sectores[i];
-            listaEmp[i].estaLibre= OCUPADO;
+            indice= buscarLibre(listaEmp,te);
+            if(indice != -1){
+                listaEmp[indice].id = ids[i];
+                strcpy(listaEmp[indice].nombre, nombres[i]);
+                strcpy(listaEmp[indice].apellido, apellidos[i]);
+                listaEmp[indice].salario= salarios[i];
+                listaEmp[indice].sector= sectores[i];
+                listaEmp[indice].estaLibre= OCUPADO;
+                contador++;
+            }else{
+                break;
+            }
         }
-        printf("\n\n --SE HARDCODEARON %d EMPLEADOS--\n\n",cant);
+        printf("\n\n --SE HARDCODEARON %d EMPLEADOS--\n\n",contador);
     }else{
         printf("\n\n --ERROR. SOLO SE PUEDEN HARDCODEAR DE 1 A 8 EMPLEADOS--\n\n");
     }
+    return contador;
+}
+
+int hayActivos(eEmpleado listaEmp[], int te){
+    int resultado= 0;
+    int i;
+    for(i=0;i<te;i++){
+        if(listaEmp[i].estaLibre == OCUPADO){
+            resultado= 1;
+            break;
+        }
+    }
+    return resultado;
 }
 
 //Función initEmployees
@@ -321,9 +349,13 @@ float obtenerSalarioTotal(eEmpleado listaEmp[], int te){
 }
 
 float obtenerSalarioPromedio(eEmpleado listaEmp[], int te){
+    float resultado=-1;
     float acumSalario= obtenerSalarioTotal(listaEmp, te);
     int cantidad= contarActivos(listaEmp, te);
-    return (float)acumSalario/cantidad;
+    if(cantidad>0){
+        resultado= (float)acumSalario/cantidad;
+    }
+    return resultado;
 }
 
 int contarSalariosMayores(eEmpleado listaEmp[], int te){
@@ -339,7 +371,7 @@ int contarSalariosMayores(eEmpleado listaEmp[], int te){
 }
 
 int altaEmpleado(eEmpleado listaEmp[], int te, int id, char cadena[]){
-    int resultado= -1;
+    int resultado= 0;
     int indice= buscarLibre(listaEmp,te);
     if(indice != -1){
         int nuevoId= id + 1;
@@ -367,7 +399,12 @@ int modificarEmpleado(eEmpleado listaEmp[], int te, char mensaje[]){
         fueModificado= 1;
         mostrarEncabezado();
         mostrarUnEmpleado(listaEmp[indice]);
-        int opcion= menuDeOpciones("\n1. Mod. Nombre\n2. Mod. Apellido\n3. Mod. Salario\n4. Mod. Sector\n5. CANCELAR.\n\nElija opcion",1,5);
+        int opcion= menuDeOpciones("\n1. Mod. Nombre"
+                                   "\n2. Mod. Apellido"
+                                   "\n3. Mod. Salario"
+                                   "\n4. Mod. Sector"
+                                   "\n5. CANCELAR"
+                                   "\n\nElija opcion",1,5);
         switch (opcion){
             case 1:
                 modificarNombre(listaEmp, indice);
@@ -404,7 +441,9 @@ int bajaEmpleado(eEmpleado listaEmp[], int te, char mensaje[]){
     if(indice != -1){
         mostrarEncabezado();
         mostrarUnEmpleado(listaEmp[indice]);
-        int opcion= menuDeOpciones("\n1.REALIZAR LA BAJA.\n2.CANCELAR.\n\nElija opcion",1,2);
+        int opcion= menuDeOpciones("\n1.REALIZAR LA BAJA."
+                                   "\n2.CANCELAR."
+                                   "\n\nElija opcion",1,2);
         if (opcion==1){
             resultado= borrarEmpleado(listaEmp,te,id);
             strcpy(mensaje,"Baja EFECTUADA.\n\n");
